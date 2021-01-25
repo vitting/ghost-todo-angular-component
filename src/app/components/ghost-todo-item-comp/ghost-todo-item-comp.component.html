@@ -1,0 +1,13 @@
+<ng-container>
+  <li>
+    <div class="remove">
+      <button type="button" title="Remove" (click)="handleRemoveItem()">
+        ❌
+      </button>
+      <div [ngClass]="{ completed: todo.completed, item: true }">
+        <span>{{todo.title}}</span>
+        <input type="checkbox" (change)="handleComplete($event)" />
+      </div>
+    </div>
+  </li>
+</ng-container>
