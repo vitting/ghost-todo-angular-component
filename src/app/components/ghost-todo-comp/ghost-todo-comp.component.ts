@@ -46,18 +46,6 @@ export class GhostTodoCompComponent implements OnInit, OnDestroy {
     }
   }
 
-  handleSubmit(item: TodoItem): void {
-    this.store.add(item);
-  }
-
-  handleComplete(item: TodoItem): void {
-    this.store.update(item);
-  }
-
-  handleRemoveItem(item: TodoItem): void {
-    this.store.remove(item);
-  }
-
   // tslint:disable-next-line: variable-name
   trackByTodo(_index: number, item: TodoItem): string {
     return `${item.id}`;

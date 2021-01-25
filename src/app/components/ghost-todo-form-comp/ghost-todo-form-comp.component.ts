@@ -1,16 +1,16 @@
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { TodoItem } from "src/app/interfaces/todo_item.interface";
 import { v4 } from "uuid";
+import { TodoItemsStoreService } from "src/app/store/todo-items-store.service";
 @Component({
   selector: "app-ghost-todo-form-comp",
   templateUrl: "./ghost-todo-form-comp.component.html",
   styleUrls: ["./ghost-todo-form-comp.component.scss"],
 })
 export class GhostTodoFormCompComponent implements OnInit {
-  @Output() submitTodo = new EventEmitter<TodoItem>();
   public todoInput = "";
 
-  constructor() {}
+  constructor(private store: TodoItemsStoreService) {}
 
   ngOnInit(): void {}
 
@@ -23,7 +23,7 @@ export class GhostTodoFormCompComponent implements OnInit {
       };
 
       this.todoInput = "";
-      this.submitTodo.emit(newTodoItem);
+      this.store.add(newTodoItem);
     }
   }
 }

@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { TodoItem } from "src/app/interfaces/todo_item.interface";
+import { TodoItemsStoreService } from "src/app/store/todo-items-store.service";
 
 @Component({
   selector: "app-ghost-todo-item-comp",
@@ -8,20 +9,18 @@ import { TodoItem } from "src/app/interfaces/todo_item.interface";
 })
 export class GhostTodoItemCompComponent implements OnInit {
   @Input() todo!: TodoItem;
-  @Output() clickTodoRemove = new EventEmitter<TodoItem>();
-  @Output() changeTodoCompleted = new EventEmitter<TodoItem>();
-  constructor() {}
+  constructor(private store: TodoItemsStoreService) {}
 
   ngOnInit(): void {}
 
   handleComplete(e: Event): void {
     if (e) {
       this.todo.completed = (e.target as HTMLInputElement).checked;
-      this.changeTodoCompleted.emit(this.todo);
+      this.store.update(this.todo);
     }
   }
 
   handleRemoveItem(): void {
-    this.clickTodoRemove.emit(this.todo);
+    this.store.remove(this.todo);
   }
 }
